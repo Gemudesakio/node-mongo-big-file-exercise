@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 import express from 'express';
 import 'dotenv/config';
-import mongoose from 'mongoose';
 import './src/config/database.js'
 import compression from 'compression';
 import morgan from 'morgan';
