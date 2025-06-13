@@ -54,7 +54,7 @@ const upload = async (req, res) => {
 
   } catch (err) {
     console.error('Error processing uploaded file:', err);
-    // Intentamos borrar el fichero si algo salió mal
+    //borrar el fichero si algo salió mal
     fs.unlink(filePath, () => {});
     return res.status(500).json({
       error: 'Error processing the uploaded file.',
