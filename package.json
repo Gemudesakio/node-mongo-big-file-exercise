@@ -2,6 +2,7 @@
   "name": "node-mongo-big-file-exercise",
   "version": "1.0.0",
   "main": "app.js",
+  "type": "module",
   "repository": "https://github.com/fedenelli/node-mongo-big-file-exercise.git",
   "author": "Federico Nelli <fnelli@carbon-base.com>",
   "license": "MIT",

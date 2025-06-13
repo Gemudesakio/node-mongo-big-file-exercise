@@ -1,44 +1,18 @@
 #!/usr/bin/env node
-require('dotenv').config({ path: `${__dirname}/.env` });
-const compression = require('compression');
-const mongoose = require('mongoose');
-const morgan = require('morgan');
-const express = require('express');
-const route = require('./src/route');
+import express from 'express';
+import 'dotenv/config';
+import mongoose from 'mongoose';
+import './src/config/database.js'
+import compression from 'compression';
+import morgan from 'morgan';
+import router from './src/router/route.js';
 
 morgan.token('host', (req) => req.headers.host);
 morgan.token('worker', () => process.pid);
 
 const app = express();
 
-const PORT = process.env.PORT || 3010;
-
-/* MLAB */
-const mongoDB = process.env.MONGODB_URL;
-const options = {
-    keepAlive: true,
-    keepAliveInitialDelay: 300000,
-    connectTimeoutMS: 30000,
-    autoIndex: false,
-    socketTimeoutMS: 30000,
-};
-
-if (process.env.MONGODB_USER) {
-    options.user = process.env.MONGODB_USER;
-    options.pass = process.env.MONGODB_PASSWORD;
-}
-
-if (process.env.MONGODB_AUTHDB) {
-    options.authSource = process.env.MONGODB_AUTHDB;
-}
-
-mongoose.set('strictQuery', false);
-
-mongoose.connect(mongoDB, options);
-mongoose.Promise = global.Promise;
-const db = mongoose.connection;
-db.on('error', (err) => console.error(err));
-/* MLAB */
+const PORT = process.env.PORT || 8080;
 
 /* REST CONFIG */
 app.set('view engine', 'ejs');
@@ -50,7 +24,7 @@ app.use(morgan('[:worker] :remote-addr (:user-agent) :host - :method :url HTTP/:
 /* REST CONFIG */
 
 /* ROUTES */
-app.use('/', route);
+app.use('/', router);
 /* ROUTES */
 
 app.listen(PORT, () => console.info(`ReachOut Exercise listening on port ${PORT} and environment ${process.env.NODE_ENV}! - Worker ${process.pid}`));

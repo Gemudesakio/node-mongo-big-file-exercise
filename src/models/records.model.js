@@ -1,7 +1,5 @@
 /* eslint-disable max-len */
-const mongoose = require('mongoose');
-
-const { Schema } = mongoose;
+import {Schema, model} from 'mongoose';
 
 const schema = new Schema({
     id: Number,
@@ -11,5 +9,5 @@ const schema = new Schema({
     email2: String,
     profession: String,
 });
-
-module.exports = mongoose.model('records', schema);
+let Records = model('records', schema);
+export default Records;

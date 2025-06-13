@@ -1,4 +1,4 @@
-const Records = require('./records.model');
+import Records from '../models/records.js';
 
 const upload = async (req, res) => {
     const {file} = req;
@@ -7,7 +7,6 @@ const upload = async (req, res) => {
 
     return res.status(200).json({ message: 'some response' });
 };
-
 const list = async (_, res) => {
     try {
         const data = await Records
@@ -20,8 +19,4 @@ const list = async (_, res) => {
         return res.status(500).json(err);
     }
 };
-
-module.exports = {
-    upload,
-    list,
-};
+export {upload, list};
